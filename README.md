@@ -1,3 +1,3 @@
-## STUDENT TASK MANAGER
+# STUDENT TASK MANAGER
 
-# Web application to create tasks for students
+### Web application to create tasks for students
