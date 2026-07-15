@@ -5,3 +5,5 @@ auth_bp = Blueprint(
     __name__,
     url_prefix="/auth"
 )
+
+from . import routes # Import routes to register them with the blueprint
