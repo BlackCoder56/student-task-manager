@@ -1,4 +1,6 @@
+from werkzeug.security import generate_password_hash
 from app.models import User 
+from app.extensions import db
 
 def register_user(data):
 
@@ -28,6 +30,20 @@ def register_user(data):
             "message": "Email already exists."
         }, 400
 
+    # Hash the password
+    hashed_password = generate_password_hash(data["password"])
+
+    # Create a new user
+    new_user = User(
+        username=data["username"],
+        email=data["email"],
+        password=hashed_password
+    )
+
+    db.session.add(new_user) # Add the new user to the session
+    db.session.commit() # Commit the changes to the database
+
+
     return {
-        "message": "Validation passed!"
-    }, 200
+        "message": "User registered successfully."
+    }, 201
