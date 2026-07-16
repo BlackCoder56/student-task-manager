@@ -3,6 +3,6 @@ from app.auth import auth_bp
 
 @auth_bp.route("/register", methods=["POST"])
 def register():
-    return jsonify({
-        "message": "Register endpoint is working!"
-    }), 200
+    data = request.get_json()
+
+    return jsonify(data), 200
