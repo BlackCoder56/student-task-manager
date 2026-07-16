@@ -1,5 +1,6 @@
+from app.models import User 
+
 def register_user(data):
-    from app.models import User 
 
     required_fields = ["username", "email", "password"]
 

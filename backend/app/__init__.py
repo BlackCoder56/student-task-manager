@@ -1,9 +1,8 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from app.auth import auth_bp
+from app.extensions import db
 
-db = SQLAlchemy()
 migrate = Migrate()
 
 def create_app():
