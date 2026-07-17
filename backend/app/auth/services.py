@@ -3,11 +3,11 @@ from app.models import User
 from app.extensions import db
 
 def login_user(data):
+
     required_fields = [
         "email",
         "password"
     ]
-
 
     for field in required_fields:
         if not data.get(field):
