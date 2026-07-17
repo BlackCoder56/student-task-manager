@@ -1,6 +1,46 @@
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from app.models import User 
 from app.extensions import db
+
+def login_user(data):
+    required_fields = [
+        "email",
+        "password"
+    ]
+
+
+    for field in required_fields:
+        if not data.get(field):
+            return {
+                "message": f"{field} is required."
+            }, 400
+
+    # Check if the user exists
+    user = User.query.filter_by(email=data["email"]).first()
+
+    # If the user does not exist, return an error
+    if not user:
+        return {
+            "message": "Invalid email or password."
+        }, 401
+    
+    # Check if the password is correct
+    if not check_password_hash(user.password, data["password"]):
+        return {
+            "message": "Invalid email or password."
+        }, 401
+
+    # If the user exists and the password is correct, return a success message
+    return {
+        "message": "Login successful.",
+        "user": {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "role": user.role
+        }
+    }, 200
+
 
 def register_user(data):
 
